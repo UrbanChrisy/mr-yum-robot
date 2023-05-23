@@ -1,7 +1,6 @@
 import { assert, test, describe } from "vitest";
 import GameModeService from "./game-mode.service";
 
-// Edit an assertion and save to see HMR in action
 describe("GameModeService", () => {
 	test("isValidPosition returns true for valid positions", () => {
 		assert.isTrue(GameModeService.isValidPosition(5, 2, 3));
@@ -21,8 +20,6 @@ describe("GameModeService", () => {
 		assert.equal(GameModeService.rotateLeft("SOUTH"), "EAST");
 		assert.equal(GameModeService.rotateLeft("EAST"), "NORTH");
 	});
-
-
 
 	test("GameModeService.rotateLeft throws an error for an invalid direction", () => {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
