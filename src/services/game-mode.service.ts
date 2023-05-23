@@ -7,19 +7,6 @@ export type Position = {
 
 export type Direction = "NORTH" | "EAST" | "SOUTH" | "WEST";
 
-export type GameModeContextType = {
-	tableSize: number;
-	setTableSize: React.Dispatch<React.SetStateAction<number>>;
-
-	position: Position | null;
-	setPosition: React.Dispatch<React.SetStateAction<Position | null>>;
-
-	direction: Direction | null;
-	setDirection: React.Dispatch<React.SetStateAction<Direction | null>>;
-
-	execute: (commands: Command[]) => void;
-};
-
 export type Command = {
 	type: "PLACE";
 	x: number;
@@ -33,6 +20,19 @@ export type Command = {
 	type: "RIGHT";
 } | {
 	type: "REPORT";
+};
+
+export type GameModeContextType = {
+	tableSize: number;
+	setTableSize: React.Dispatch<React.SetStateAction<number>>;
+
+	position: Position | null;
+	setPosition: React.Dispatch<React.SetStateAction<Position | null>>;
+
+	direction: Direction | null;
+	setDirection: React.Dispatch<React.SetStateAction<Direction | null>>;
+
+	execute: (commands: Command[]) => void;
 };
 
 const GameModeContext = React.createContext<GameModeContextType>(null!);
@@ -90,7 +90,6 @@ const GameModeService = {
 					if (!this.isValidPosition(tableSize, command.x, command.y)) {
 						break;
 					}
-
 					position = {
 						x: command.x,
 						y: command.y,
@@ -113,9 +112,7 @@ const GameModeService = {
 
 				}
 				case "REPORT": {
-					console.log("Position: ", position);
-					console.log("Direction: ", direction);
-					alert(`Position: ${position?.x}, ${position?.y}\nDirection: ${direction}`);
+					console.log(`Position: ${position?.x}, ${position?.y}\nDirection: ${direction}`);
 					break;
 				}
 				default:

@@ -32,10 +32,7 @@ const Actions: FunctionComponent = () => {
 	}
 
 	const onHandlePlaceCommandCreate = (values: CreatePlaceCommandFormValues) => {
-
-		console.log("onHandlePlaceCommandCreate", values);
-
-		// setCommands((prevCommands) => [...prevCommands, { type: "PLACE", x: 0, y: 0, direction: "SOUTH" }]);
+		setCommands((prevCommands) => [...prevCommands, { type: "PLACE", x: values.x, y: values.y, direction: values.direction }]);
 	};
 
 	const onMoveCommandClick = () => {
@@ -63,7 +60,12 @@ const Actions: FunctionComponent = () => {
 				<Heading size={"sm"} w={"full"} color={"green"}>Enter commands then press execute</Heading>
 				<HStack minH={20} w={"full"} borderTop={"1px solid green"}  borderBottom={"1px solid green"}>
 					{commands.map((command, index) => (
-						<Button key={`${command.type}-${index}`} onClick={() => {}} size={"sm"} rightIcon={<CloseIcon boxSize={2}/>}>
+						<Button
+							key={`${command.type}-${index}`}
+							onClick={() => setCommands((prevCommands) => prevCommands.filter((_, i) => i !== index))}
+							size={"sm"}
+							rightIcon={<CloseIcon boxSize={2}/>}
+						>
 							<Code bg={"transparent"}>{GameModeService.getLabelForCommandType(command)}</Code>
 						</Button>
 					))}

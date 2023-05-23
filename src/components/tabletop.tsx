@@ -9,7 +9,7 @@ const TILE_WIDTH = 80;
 const Tabletop: FunctionComponent<TabletopProps> = (props) => {
 	const {} = props;
 
-	const { tableSize, position, setPosition  } = GameModeService.useState();
+	const { tableSize, direction, position  } = GameModeService.useState();
 	const numOfTiles = tableSize * tableSize;
 
 	const tiles = Array.from(Array(numOfTiles).keys());
@@ -19,11 +19,10 @@ const Tabletop: FunctionComponent<TabletopProps> = (props) => {
 			{tiles.map((tile) => {
 
 				const x = tile % tableSize;
-				const y = Math.floor(tile / tableSize);
+				const y = tableSize - 1 - Math.floor(tile / tableSize);
 				const isCurrentPosition = position?.x === x && position?.y === y;
 
 				const onTileClick = () => {
-					setPosition({ x, y });
 				}
 
 				return (
@@ -31,9 +30,12 @@ const Tabletop: FunctionComponent<TabletopProps> = (props) => {
 						key={`${x}-${y}`}
 						w={`${TILE_WIDTH}px`}
 						h={`${TILE_WIDTH}px`}
-						border="1px solid green"
+						borderTop={direction === "NORTH" && isCurrentPosition ? "1px solid red" : "1px solid green"}
+						borderRight={direction === "EAST" && isCurrentPosition ? "1px solid red" : "1px solid green"}
+						borderBottom={direction === "SOUTH" && isCurrentPosition ? "1px solid red" : "1px solid green"}
+						borderLeft={direction === "WEST" && isCurrentPosition ? "1px solid red" : "1px solid green"}
 						onClick={onTileClick}
-						bg={isCurrentPosition ? "orange" : "black"}
+						bg={isCurrentPosition ? "blue" : "black"}
 						justifyContent="center"
 						alignItems="center"
 					>
